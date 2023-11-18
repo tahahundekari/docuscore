@@ -98,6 +98,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "json5": "^2.2.3"
+    "json5": "^2.2.3",
+    "nodeplotlib": "^1.1.2"
   }
 }
