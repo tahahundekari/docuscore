@@ -1,7 +1,6 @@
 import * as path from "path";
 import * as vscode from "vscode";
 
-import * as json5 from "json5";
 import { TextDecoder } from "util";
 
 export class Configuration {
@@ -66,7 +65,7 @@ export class Configuration {
       const content = new TextDecoder().decode(rawContent);
 
       // use json5, because the config can contains comments
-      const config = json5.parse(content);
+      const config = JSON.parse(content);
 
       this.commentConfig.set(languageCode, config.comments);
 
