@@ -4,16 +4,16 @@ export function createUpvoteIcon(
   context: vscode.ExtensionContext,
   lineNumber: number
 ) {
-  let activateEditor = vscode.window.activeTextEditor;
-  if (activateEditor) {
-    createIconAtLine(lineNumber, activateEditor);
+  let activeEditor = vscode.window.activeTextEditor;
+  if (activeEditor) {
+    createIconAtLine(lineNumber, activeEditor);
   }
 
   vscode.window.onDidChangeActiveTextEditor(
     (editor) => {
       if (editor) {
-        activateEditor = editor;
-        createIconAtLine(5, activateEditor);
+        activeEditor = editor;
+        createIconAtLine(5, activeEditor);
       }
     },
     null,
