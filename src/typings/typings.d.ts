@@ -1,4 +1,5 @@
 // credits to https://github.com/aaron-bond/better-comments/tree/master
+
 interface CommentTag {
   tag: string;
   escapedTag: string;
