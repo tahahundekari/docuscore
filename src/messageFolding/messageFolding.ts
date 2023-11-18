@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 export function createFoldingIcon(context: vscode.ExtensionContext) {
   let activeEditor = vscode.window.activeTextEditor;
   let decorationType = vscode.window.createTextEditorDecorationType({
-    gutterIconPath: "/home/anton/Downloads/announcement.svg",
+    gutterIconPath: "/home/anton/Downloads/forum.svg",
     gutterIconSize: "contain",
   });
 

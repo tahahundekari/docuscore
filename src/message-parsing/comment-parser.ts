@@ -3,6 +3,7 @@
 import * as vscode from "vscode";
 import { CommentTag, Contributions } from "./typings/typings";
 import { Configuration } from "./configuration";
+import { createUpvoteButton } from "../upvote-button/upvote-button";
 
 export class Parser {
   private tags: CommentTag[] = [];
@@ -32,13 +33,15 @@ export class Parser {
 
   // The configuration necessary to find supported languages on startup
   private configuration: Configuration;
+  private context: vscode.ExtensionContext;
 
   /**
    * Creates a new instance of the Parser class
    * @param configuration
    */
-  public constructor(config: Configuration) {
+  public constructor(config: Configuration, context: vscode.ExtensionContext) {
     this.configuration = config;
+    this.context = context;
 
     this.setTags();
   }
@@ -81,7 +84,9 @@ export class Parser {
    */
   public FindSingleLineComments(activeEditor: vscode.TextEditor): void {
     // If highlight single line comments is off, single line comments are not supported for this language
-    if (!this.highlightSingleLineComments) {return;}
+    if (!this.highlightSingleLineComments) {
+      return;
+    }
 
     let text = activeEditor.document.getText();
 
@@ -112,6 +117,9 @@ export class Parser {
       );
 
       if (matchTag) {
+        if (matchTag.tag == "a!") {
+          createUpvoteButton(this.context, startPos.line);
+        }
         matchTag.ranges.push(range);
       }
     }
@@ -123,7 +131,9 @@ export class Parser {
    */
   public FindBlockComments(activeEditor: vscode.TextEditor): void {
     // If highlight multiline is off in package.json or doesn't apply to his language, return
-    if (!this.highlightMultilineComments) {return;}
+    if (!this.highlightMultilineComments) {
+      return;
+    }
 
     let text = activeEditor.document.getText();
 
@@ -185,7 +195,9 @@ export class Parser {
    */
   public FindJSDocComments(activeEditor: vscode.TextEditor): void {
     // If highlight multiline is off in package.json or doesn't apply to his language, return
-    if (!this.highlightMultilineComments && !this.highlightJSDoc) {return;}
+    if (!this.highlightMultilineComments && !this.highlightJSDoc) {
+      return;
+    }
 
     let text = activeEditor.document.getText();
 

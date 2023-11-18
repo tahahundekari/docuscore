@@ -6,15 +6,19 @@ export async function runMessageParser(context: vscode.ExtensionContext) {
   let activeEditor: vscode.TextEditor;
 
   let configuration: Configuration = new Configuration();
-  let parser: Parser = new Parser(configuration);
+  let parser: Parser = new Parser(configuration, context);
 
   // Called to handle events below
   let updateDecorations = function () {
     // if no active window is open, return
-    if (!activeEditor) {return;}
+    if (!activeEditor) {
+      return;
+    }
 
     // if lanugage isn't supported, return
-    if (!parser.supportedLanguage) {return;}
+    if (!parser.supportedLanguage) {
+      return;
+    }
 
     // Finds the single line comments using the language comment delimiter
     parser.FindSingleLineComments(activeEditor);
