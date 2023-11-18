@@ -1,7 +1,10 @@
 import * as vscode from "vscode";
 
-export function createUpvoteButton(context: vscode.ExtensionContext) {
-  createIconAtLine(10);
-}
+import { createUpvoteIcon } from "./create-upvote-icon";
 
-function createIconAtLine(lineNumber: number) {}
+export function createUpvoteButton(
+  context: vscode.ExtensionContext,
+  lineNumber: number
+) {
+  createUpvoteIcon(context, lineNumber);
+}
