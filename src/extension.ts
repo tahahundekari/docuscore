@@ -1,26 +1,60 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+function activate(context: vscode.ExtensionContext) {
+  let activeEditor = vscode.window.activeTextEditor;
+  let decorationType = vscode.window.createTextEditorDecorationType({
+    gutterIconPath: "/home/anton/Downloads/announcement.svg",
+    gutterIconSize: "contain",
+  });
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "DocUScore" is now active!');
+  function updateDecorations() {
+    if (!activeEditor) {
+      return;
+    }
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('DocUScore.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from docuscore!');
-	});
+    const decorationOptions = [];
+    // Assuming you want to add the icon to line number X
+    const lineX = 10; // Replace 10 with the line number you want
+    const range = new vscode.Range(lineX, 0, lineX, 0);
+    const decoration = { range };
+    decorationOptions.push(decoration);
 
-	context.subscriptions.push(disposable);
+    activeEditor.setDecorations(decorationType, decorationOptions);
+  }
+
+  if (activeEditor) {
+    updateDecorations();
+  }
+
+  vscode.window.onDidChangeActiveTextEditor(
+    (editor) => {
+      activeEditor = editor;
+      if (editor) {
+        updateDecorations();
+      }
+    },
+    null,
+    context.subscriptions
+  );
+
+  vscode.commands.registerCommand("DocUScore.foldComments", function () {
+    vscode.window.showInformationMessage("Hello World!");
+  });
+
+  vscode.workspace.onDidChangeTextDocument(
+    (event) => {
+      if (activeEditor && event.document === activeEditor.document) {
+        updateDecorations();
+      }
+    },
+    null,
+    context.subscriptions
+  );
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+function deactivate() {}
+
+module.exports = {
+  activate,
+  deactivate,
+};
