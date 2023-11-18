@@ -65,7 +65,11 @@
     "commands": [
       {
         "command": "DocUScore.foldComments",
-        "title": "Hello World"
+        "title": "Fold Comments"
+      },
+      {
+        "command": "DocUScore.plotScoreboard",
+        "title": "Plot Scoreboard"
       }
     ]
   },
@@ -98,6 +102,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "json5": "^2.2.3"
+    "json5": "^2.2.3",
+    "nodeplotlib": "^0.7.7"
   }
 }
