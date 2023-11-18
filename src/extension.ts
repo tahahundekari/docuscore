@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { runMessageParser } from "./messageParsing/messageParser";
+import { runMessageParser } from "./message-parsing/message-parser";
 import { createFoldingIcon } from "./messageFolding/messageFolding";
 import { createUpvoteButton } from "./upvote-button/upvote-button";
 
