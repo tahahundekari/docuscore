@@ -117,7 +117,7 @@ export class Parser {
       );
 
       if (matchTag) {
-        if (matchTag.tag == "a!") {
+        if (matchTag.tag === "a!") {
           createUpvoteButton(this.context, startPos.line);
         }
         matchTag.ranges.push(range);
