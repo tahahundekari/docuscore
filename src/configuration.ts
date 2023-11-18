@@ -1,3 +1,4 @@
+// credit to https://github.com/aaron-bond/better-comments/tree/master
 import * as path from "path";
 import * as vscode from "vscode";
 
