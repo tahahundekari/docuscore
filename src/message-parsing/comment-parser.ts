@@ -3,6 +3,7 @@
 import * as vscode from "vscode";
 import { Answer, CommentTag, Contributions } from "./typings/typings";
 import { Configuration } from "./configuration";
+import { start } from "repl";
 
 export class Parser {
   private tags: CommentTag[] = [];
@@ -44,6 +45,37 @@ export class Parser {
     this.context = context;
 
     this.setTags();
+  }
+
+  public createHoverUpvote(
+    startPos: any,
+    endPos: any,
+    activeEditor: vscode.TextEditor
+  ) {
+    const fileLine = `${activeEditor.document.fileName}:${startPos.line + 1}`;
+    const hoverMessage = new vscode.MarkdownString(
+      `[Upvote](command:DocUScore.upvote?${encodeURIComponent(
+        JSON.stringify(fileLine)
+      )})`
+    );
+    hoverMessage.isTrusted = true;
+    const decoration = vscode.window.createTextEditorDecorationType({
+      backgroundColor: "#222222",
+    });
+    this.answers.push({
+      decoration: decoration,
+      decorationOptions: [
+        {
+          range: new vscode.Range(
+            startPos.line,
+            startPos.character,
+            endPos.line,
+            endPos.character
+          ),
+          hoverMessage: hoverMessage,
+        },
+      ],
+    });
   }
 
   /**
@@ -118,27 +150,7 @@ export class Parser {
 
       if (matchTag) {
         if (matchTag.tag === "a!") {
-          const hoverMessage = new vscode.MarkdownString(
-            `[Upvote](command:DocUScore.upvote)`
-          );
-          hoverMessage.isTrusted = true;
-          const decoration = vscode.window.createTextEditorDecorationType({
-            backgroundColor: "#222222",
-          });
-          this.answers.push({
-            decoration: decoration,
-            decorationOptions: [
-              {
-                range: new vscode.Range(
-                  startPos.line,
-                  startPos.character,
-                  endPos.line,
-                  endPos.character
-                ),
-                hoverMessage: hoverMessage,
-              },
-            ],
-          });
+          this.createHoverUpvote(startPos, endPos, activeEditor);
         }
         matchTag.ranges.push(range);
       }

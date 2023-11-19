@@ -69,7 +69,8 @@
       },
       {
         "command": "DocUScore.upvote",
-        "title": "Upvote Post"
+        "title": "Upvote Post",
+        "commandArgs": ["${input:fileLine}"]
       },
       {
         "command": "DocUScore.plotScoreboard",
@@ -78,6 +79,13 @@
       {
         "command": "DocUScore.getFunctionDescription",
         "title": "Get Function Description"
+      }
+    ],
+    "inputs": [
+      {
+        "id": "fileLine",
+        "type": "promptString",
+        "description": "The file and line of the authored answer"
       }
     ]
   },
