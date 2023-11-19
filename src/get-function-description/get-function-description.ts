@@ -14,7 +14,7 @@ function addComment(functionDef: string, position:vscode.Position, generatedComm
 
     // TODO: only functions with c-family languages for the time-being
     const lines: string[] = generatedComment.split("\n").filter(
-        subs => subs.startsWith("*")
+        subs => subs.startsWith("*") || subs.startsWith("/*") || subs.startsWith("*/")
     );
     const noOfLines: number = lines.length;
 
