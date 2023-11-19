@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+require("dotenv").config();
 import { runMessageParser } from "./message-parsing/message-parser";
 import { createFoldingIcon } from "./message-folding/message-folding";
 import { scoreboard } from "./scoreboard/plot-scoreboard";
