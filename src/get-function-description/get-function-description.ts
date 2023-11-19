@@ -1,5 +1,37 @@
 import * as vscode from "vscode";
 import { OpenaiApiService } from "../openai-api/openai-api.service";
+//import { ExtensionContext } from "vscode";
+//
+//function runParser(context: vscode.ExtensionContext) {
+//    let activeEditor: vscode.TextEditor | undefined = vscode.window.activeTextEditor;
+//
+//    let parseDefinitions = function () {
+//        if (!activeEditor) {
+//            return;
+//        }
+//
+//        let functionDef: string;
+//
+//        // Currently only for C-like languages and Python
+//        if (activeEditor.document.languageId === "java") {
+//            functionDef = "/(?:public|private|protected|static)?\s+(\w+)\s+(\w+)\s*\([^)]*\)\s*{[^}]*}/g"
+//        }
+//        else if (activeEditor.document.languageId === "python") {
+//            functionDef = "/\bdef\s+(\w+)\s*\([^)]*\)\s*:/g";
+//        }
+//        else if (activeEditor.document.languageId === "typescript") {
+//            functionDef = "/\b(?:async\s+)?(?:function\s+)?(\w+)\s*\([^)]*\)\s*:\s*\w+\s*{[^}]*}/g";
+//        }
+//        else {
+//            return;
+//        }
+//
+//        
+//        
+//
+//    }();
+//
+//}
 
 function addComment(functionDef: string, position:vscode.Position, generatedComment: string) {
     const activeEditor: vscode.TextEditor | undefined = vscode.window.activeTextEditor;
