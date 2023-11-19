@@ -1,10 +1,17 @@
 // credits to https://github.com/aaron-bond/better-comments/tree/master
 
+import { DecorationOptions, TextEditorDecorationType } from "vscode";
+
 export interface CommentTag {
   tag: string;
   escapedTag: string;
   decoration: any;
   ranges: Array<any>;
+}
+
+export interface Answer {
+  decoration: TextEditorDecorationType;
+  decorationOptions: DecorationOptions[];
 }
 
 export interface Contributions {

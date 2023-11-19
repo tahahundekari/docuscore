@@ -68,6 +68,10 @@
         "title": "Fold Comments"
       },
       {
+        "command": "DocUScore.upvote",
+        "title": "Upvote Post"
+      },
+      {
         "command": "DocUScore.plotScoreboard",
         "title": "Plot Scoreboard"
       },

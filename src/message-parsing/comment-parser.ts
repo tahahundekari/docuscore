@@ -1,13 +1,13 @@
 // credit to https://github.com/aaron-bond/better-comments/
 
 import * as vscode from "vscode";
-import { CommentTag, Contributions } from "./typings/typings";
+import { Answer, CommentTag, Contributions } from "./typings/typings";
 import { Configuration } from "./configuration";
-import { createUpvoteButton } from "../upvote-button/upvote-button";
 
 export class Parser {
   private tags: CommentTag[] = [];
   private expression: string = "";
+  private answers: Answer[] = [];
 
   private delimiter: string = "";
   private blockCommentStart: string = "";
@@ -117,8 +117,28 @@ export class Parser {
       );
 
       if (matchTag) {
-        if (matchTag.tag == "a!") {
-          createUpvoteButton(this.context, startPos.line);
+        if (matchTag.tag === "a!") {
+          const hoverMessage = new vscode.MarkdownString(
+            `[Upvote](command:DocUScore.upvote)`
+          );
+          hoverMessage.isTrusted = true;
+          const decoration = vscode.window.createTextEditorDecorationType({
+            backgroundColor: "#222222",
+          });
+          this.answers.push({
+            decoration: decoration,
+            decorationOptions: [
+              {
+                range: new vscode.Range(
+                  startPos.line,
+                  startPos.character,
+                  endPos.line,
+                  endPos.character
+                ),
+                hoverMessage: hoverMessage,
+              },
+            ],
+          });
         }
         matchTag.ranges.push(range);
       }
@@ -257,6 +277,11 @@ export class Parser {
 
       // clear the ranges for the next pass
       tag.ranges.length = 0;
+    }
+    for (let answer of this.answers) {
+      activeEditor.setDecorations(answer.decoration, answer.decorationOptions);
+
+      answer.decorationOptions.length = 0;
     }
   }
 
