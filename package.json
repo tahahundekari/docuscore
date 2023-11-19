@@ -70,7 +70,9 @@
       {
         "command": "DocUScore.upvote",
         "title": "Upvote Post",
-        "commandArgs": ["${input:fileLine}"]
+        "commandArgs": [
+          "${input:fileLine}"
+        ]
       },
       {
         "command": "DocUScore.plotScoreboard",
@@ -109,6 +111,7 @@
     "@typescript-eslint/parser": "^6.9.0",
     "@vscode/test-electron": "^2.3.6",
     "eslint": "^8.52.0",
+    "git-blame-line": "^0.2.4",
     "glob": "^10.3.10",
     "mocha": "^10.2.0",
     "ts-loader": "^9.5.0",
